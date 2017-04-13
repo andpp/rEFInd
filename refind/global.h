@@ -307,6 +307,7 @@ typedef struct {
 } LEGACY_ENTRY;
 
 typedef struct {
+   CHAR16           *Title;
    BOOLEAN          TextOnly;
    BOOLEAN          ScanAllLinux;
    BOOLEAN          DeepLegacyScan;

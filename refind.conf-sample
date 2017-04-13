@@ -3,6 +3,10 @@
 # Configuration file for the rEFInd boot menu
 #
 
+# Title shown in the menu header.
+# Default is "rEFInd". (use quotes if you want the title to contain a space)
+#title "rEFInd"
+
 # Timeout in seconds for the main menu screen. Setting the timeout to 0
 # disables automatic booting (i.e., no timeout). Setting it to -1 causes
 # an immediate boot to the default OS *UNLESS* a keypress is in the buffer

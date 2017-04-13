@@ -160,7 +160,7 @@ REFIT_MENU_SCREEN MainMenu       = { L"Main Menu", NULL, 0, NULL, 0, NULL, 0, L"
                                      L"Insert, Tab, or F2 for more options; Esc or Backspace to refresh" };
 static REFIT_MENU_SCREEN AboutMenu      = { L"About", NULL, 0, NULL, 0, NULL, 0, NULL, L"Press Enter to return to main menu", L"" };
 
-REFIT_CONFIG GlobalConfig = { FALSE, TRUE, FALSE, FALSE, TRUE, FALSE, 0, 0, 0, DONT_CHANGE_TEXT_MODE,
+REFIT_CONFIG GlobalConfig = { DEFAULT_TITLE, FALSE, TRUE, FALSE, FALSE, TRUE, FALSE, 0, 0, 0, DONT_CHANGE_TEXT_MODE,
                               20, 0, 0, GRAPHICS_FOR_OSX, LEGACY_TYPE_MAC,
                               0, 0, { DEFAULT_BIG_ICON_SIZE / 4, DEFAULT_SMALL_ICON_SIZE, DEFAULT_BIG_ICON_SIZE },
                               BANNER_NOSCALE, NULL, NULL, NULL, NULL, CONFIG_FILE_NAME, NULL, NULL, NULL, NULL,
@@ -1636,7 +1636,8 @@ static VOID ScanEfiFiles(REFIT_VOLUME *Volume) {
         // If not a duplicate & if it exists & if it's not us, create an entry
         // for the fallback boot loader
         if (ScanFallbackLoader && FileExists(Volume->RootDir, FALLBACK_FULLNAME) && ShouldScan(Volume, L"EFI\\BOOT")) {
-            AddLoaderEntry(FALLBACK_FULLNAME, L"Fallback boot loader", Volume, TRUE);
+            // AddLoaderEntry(FALLBACK_FULLNAME, L"Fallback boot loader", Volume, TRUE);
+            AddLoaderEntry(FALLBACK_FULLNAME, L"Default boot loader", Volume, TRUE);
         }
     } // if
 } // static VOID ScanEfiFiles()

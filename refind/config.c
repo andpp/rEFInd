@@ -614,6 +614,9 @@ VOID ReadConfig(CHAR16 *FileName)
               MergeStrings(&GlobalConfig.DontScanVolumes, TokenList[i], L',');
            }
 
+        } else if (MyStriCmp(TokenList[0], L"title")) {
+            HandleStrings(TokenList, TokenCount, &(GlobalConfig.Title));
+
         } else if (MyStriCmp(TokenList[0], L"don't_scan_dirs") || MyStriCmp(TokenList[0], L"dont_scan_dirs")) {
             HandleStrings(TokenList, TokenCount, &(GlobalConfig.DontScanDirs));
 
@@ -851,7 +854,7 @@ static VOID AddSubmenu(LOADER_ENTRY *Entry, REFIT_FILE *File, REFIT_VOLUME *Volu
             if ((Volume != NULL) && (Volume->IsReadable) && (Volume->RootDir)) {
                MyFreePool(SubEntry->me.Title);
                SubEntry->me.Title        = AllocateZeroPool(256 * sizeof(CHAR16));
-               SPrint(SubEntry->me.Title, 255, L"Boot %s from %s", (Title != NULL) ? Title : L"Unknown", Volume->VolName);
+               SPrint(SubEntry->me.Title, 255, L"%s", (Title != NULL) ? Title : L"Unknown");
                SubEntry->me.BadgeImage   = Volume->VolBadgeImage;
                SubEntry->VolName         = Volume->VolName;
             } // if volume is readable
@@ -913,7 +916,7 @@ static LOADER_ENTRY * AddStanzaEntries(REFIT_FILE *File, REFIT_VOLUME *Volume, C
 
    Entry->Title           = StrDuplicate(Title);
    Entry->me.Title        = AllocateZeroPool(256 * sizeof(CHAR16));
-   SPrint(Entry->me.Title, 255, L"Boot %s from %s", (Title != NULL) ? Title : L"Unknown", CurrentVolume->VolName);
+   SPrint(Entry->me.Title, 255, L"%s", (Title != NULL) ? Title : L"Unknown");
    Entry->me.Row          = 0;
    Entry->me.BadgeImage   = CurrentVolume->VolBadgeImage;
    Entry->VolName         = CurrentVolume->VolName;
@@ -934,7 +937,7 @@ static LOADER_ENTRY * AddStanzaEntries(REFIT_FILE *File, REFIT_VOLUME *Volume, C
             if ((CurrentVolume != NULL) && (CurrentVolume->IsReadable) && (CurrentVolume->RootDir)) {
                MyFreePool(Entry->me.Title);
                Entry->me.Title        = AllocateZeroPool(256 * sizeof(CHAR16));
-               SPrint(Entry->me.Title, 255, L"Boot %s from %s", (Title != NULL) ? Title : L"Unknown", CurrentVolume->VolName);
+               SPrint(Entry->me.Title, 255, L"%s", (Title != NULL) ? Title : L"Unknown");
                Entry->me.BadgeImage   = CurrentVolume->VolBadgeImage;
                Entry->VolName         = CurrentVolume->VolName;
             } // if volume is readable
