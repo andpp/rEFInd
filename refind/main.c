@@ -948,7 +948,6 @@ VOID GenerateSubScreen(LOADER_ENTRY *Entry, IN REFIT_VOLUME *Volume, IN BOOLEAN 
     if (GenerateReturn)
         AddMenuEntry(SubScreen, &MenuEntryReturn);
     Entry->me.SubScreen = SubScreen;
-    MyFreePool(KernelVersion);
 } // VOID GenerateSubScreen()
 
 // Returns options for a Linux kernel. Reads them from an options file in the
@@ -1127,7 +1126,7 @@ static LOADER_ENTRY * AddLoaderEntry(IN CHAR16 *LoaderPath, IN CHAR16 *LoaderTit
         // Extra space at end of Entry->me.Title enables searching on Volume->VolName even if another volume
         // name is identical except for something added to the end (e.g., VolB1 vs. VolB12).
         // Note: Volume->VolName will be NULL for network boot programs.
-        if (Volume->VolName)
+        if ((Volume->VolName) && (!MyStriCmp(Volume->VolName, L"Recovery HD")))
             SPrint(Entry->me.Title, 255, L"Boot %s from %s ", (LoaderTitle != NULL) ? LoaderTitle : LoaderPath, Volume->VolName);
         else
             SPrint(Entry->me.Title, 255, L"Boot %s ", (LoaderTitle != NULL) ? LoaderTitle : LoaderPath);
